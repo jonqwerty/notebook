@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 import { Alert } from './components/Alert';
 import { Navbar } from './components/Navbar';
 import { AlertState } from './context/alert/AlertState';
@@ -17,8 +17,10 @@ function App() {
           <div className="container pt-4">
             <Alert />
             <Switch>
-              <Route path={'/'} exact component={Home} />
-              <Route path={'/about'} component={About} />
+              <Route exact path={'/'} render={ () => <Redirect to={'/main'} />} />
+              <Route path={'/main'} render={ () => <Home /> } />
+              <Route path={'/about'} render={ () => <About /> } />
+              <Route path={'*'} render={ () => <div>404 Page not found</div> } />
             </Switch>
           </div>
         </HashRouter>
